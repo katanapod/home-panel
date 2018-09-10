@@ -202,6 +202,7 @@ class Header extends React.Component {
   };
 
   getState = (entities, entity, endAdornment = '') => {
+    if (!entities) return undefined;
     var state = entities.find(i => {
       return i[1].entity_id === entity;
     });
@@ -230,7 +231,7 @@ class Header extends React.Component {
 
     const header = {
       left_outdoor_weather: config.header.left_outdoor_weather && {
-        icon: icon ? icon.replaceAll('-', '_').toUpperCase() : 'CLOUDY',
+        icon: icon && icon.replaceAll('-', '_').toUpperCase(),
         condition: config.header.left_outdoor_weather.condition &&
           this.getState(entities, config.header.left_outdoor_weather.condition),
         data: []
@@ -386,7 +387,7 @@ Header.propTypes = {
   themes: PropTypes.array.isRequired,
   theme: PropTypes.object.isRequired,
   config: PropTypes.object.isRequired,
-  entities: PropTypes.array.isRequired,
+  entities: PropTypes.array,
   moved: PropTypes.bool.isRequired,
   over: PropTypes.bool.isRequired,
   handleMouseOver: PropTypes.func.isRequired,
